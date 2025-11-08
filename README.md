@@ -1,21 +1,22 @@
-# Soroban Project
+# Soroban To-Do List Contract
 
-## Project Structure
+A simple smart contract built with **Rust** and the **Soroban SDK** to manage a per-user to-do list on the blockchain.
 
-This repository uses the recommended structure for a Soroban project:
-```text
-.
-├── contracts
-│   └── hello_world
-│       ├── src
-│       │   ├── lib.rs
-│       │   └── test.rs
-│       └── Cargo.toml
-├── Cargo.toml
-└── README.md
-```
+## 🚀 Features
 
-- New Soroban contracts can be put in `contracts`, each in their own directory. There is already a `hello_world` contract in there to get you started.
-- If you initialized this project with any other example contracts via `--with-example`, those contracts will be in the `contracts` directory as well.
-- Contracts should have their own `Cargo.toml` files that rely on the top-level `Cargo.toml` workspace for their dependencies.
-- Frontend libraries can be added to the top-level directory as well. If you initialized this project with a frontend template via `--frontend-template` you will have those files already included.
+* **`add_task(user: Address, description: String)`**: Adds a new task for a specific user.
+* **`mark_done(user: Address, task_id: u32)`**: Marks an existing task as completed by its ID.
+* **`get_tasks_by_user(user: Address) -> Vec<Task>`**: Retrieves the entire list of tasks (both pending and completed) for a user.
+
+## Data Structure
+
+Each `Task` is stored using the following struct:
+
+```rust
+#[derive(Clone, Debug, Eq, PartialEq)]
+#[contracttype]
+pub struct Task {
+    pub id: u32,
+    pub description: String,
+    pub done: bool,
+}
